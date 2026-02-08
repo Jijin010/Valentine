@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Will You Be My Valentine 💖</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Valentine 💖</title>
 
 <style>
 body {
@@ -34,10 +34,6 @@ p {
   line-height: 1.6;
 }
 
-.buttons {
-  margin-top: 20px;
-}
-
 button {
   font-size: 18px;
   padding: 12px 24px;
@@ -58,16 +54,11 @@ button {
 
 .heart-btn {
   display: none;
-  font-size: 22px;
   background: #ff4d88;
   color: white;
+  font-size: 22px;
+  padding: 14px 28px;
   border-radius: 30px;
-  padding: 12px 26px;
-  margin-top: 25px;
-}
-
-.hidden {
-  display: none;
 }
 
 /* Floating hearts */
@@ -82,143 +73,92 @@ button {
   from { transform: translateY(100vh); }
   to { transform: translateY(-10vh); }
 }
-
-/* Party ribbons */
-.ribbon {
-  position: fixed;
-  top: 40%;
-  font-size: 28px;
-  animation: pop 1s ease-out forwards;
-}
-
-.left { left: 10px; }
-.right { right: 10px; }
-
-@keyframes pop {
-  from { transform: translateX(0); opacity: 0; }
-  to { transform: translateX(40px); opacity: 1; }
-}
-
-/* Confetti */
-.confetti {
-  position: fixed;
-  top: -10px;
-  font-size: 18px;
-  animation: fall 3s linear forwards;
-}
-
-@keyframes fall {
-  to { transform: translateY(110vh) rotate(360deg); }
-}
 </style>
 </head>
 
 <body>
 
-<!-- Background Music -->
 <audio id="bgMusic" src="music.mp3" loop></audio>
 
-<div class="container">
+<div class="container" id="page1">
 
-  <img id="sadHamster" src="Sad hamster.png">
+  <img src="Sad hamster.png" id="sadHamster">
 
   <h1 id="question">Will you be my Valentine? 💘</h1>
 
-  <div class="buttons" id="choiceButtons">
+  <div id="buttons">
     <button id="yesBtn">Yes 💖</button>
     <button id="noBtn">No 💔</button>
   </div>
 
-  <img id="happyHamster" src="Happy hamster.png" class="hidden">
+  <img src="Happy hamster.png" id="happyHamster" style="display:none;">
 
-  <h1 id="congrats" class="hidden">
+  <h1 id="congrats" style="display:none;">
     🎉 Congratulations, you’re now officially my Valentine 💝
   </h1>
 
   <button id="heartBtn" class="heart-btn">❤️ Click Here</button>
 
-  <div id="finalMessage" class="hidden">
-    <img src="sunflower.png">
-
-    <p>
-      To my hardworking, beautiful girl ❤️<br><br>
-      I see how much you try, how much you carry, and how gracefully you still smile through it all.
-      Your strength amazes me, and your heart inspires me more than you’ll ever know.
-      You are the lucky charm of my life, the moonlight in my darkest nights,
-      the calm my heart always searches for.<br><br>
-
-      I don’t want grand promises or perfect moments —
-      I just want to hold your hand and walk beside you,
-      through every season, until the very end.
-      Loving you feels like home, like something my soul has been waiting for all along.<br><br>
-
-      <strong>I love you 💝</strong><br>
-      <strong>Happy Valentine’s Day 💕✨</strong>
-    </p>
-
-    <img src="Hug.gif" style="max-width:200px;">
-  </div>
-
 </div>
 
 <script>
-/* Floating hearts */
+/* Floating hearts everywhere */
 setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = ["💖","💗","💘","💝"][Math.floor(Math.random()*4)];
-  heart.style.left = Math.random() * 100 + "vw";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = ["💖","💗","💘","💝"][Math.floor(Math.random()*4)];
+  h.style.left = Math.random()*100 + "vw";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 6000);
 }, 500);
 
 /* NO button escape */
-document.getElementById("noBtn").addEventListener("mouseover", () => {
-  const btn = document.getElementById("noBtn");
-  btn.style.position = "absolute";
-  btn.style.left = Math.random()*80 + "%";
-  btn.style.top = Math.random()*80 + "%";
+noBtn.addEventListener("mouseover", () => {
+  noBtn.style.position = "absolute";
+  noBtn.style.left = Math.random()*80 + "%";
+  noBtn.style.top = Math.random()*80 + "%";
 });
 
-/* YES logic */
-document.getElementById("yesBtn").addEventListener("click", () => {
-  navigator.vibrate?.(200); // 📳 vibration
-  document.getElementById("bgMusic").play(); // 🎵 music
+/* YES click */
+yesBtn.addEventListener("click", () => {
+  navigator.vibrate?.(200);
+  bgMusic.play();
 
-  sadHamster.classList.add("hidden");
-  choiceButtons.classList.add("hidden");
-  question.classList.add("hidden");
+  sadHamster.style.display = "none";
+  buttons.style.display = "none";
+  question.style.display = "none";
 
-  happyHamster.classList.remove("hidden");
-  congrats.classList.remove("hidden");
-
-  ["🎊","🎉","🥳"].forEach(e => {
-    ["left","right"].forEach(side => {
-      const r = document.createElement("div");
-      r.className = "ribbon " + side;
-      r.innerHTML = e;
-      document.body.appendChild(r);
-      setTimeout(()=>r.remove(),1200);
-    });
-  });
+  happyHamster.style.display = "block";
+  congrats.style.display = "block";
 
   setTimeout(() => heartBtn.style.display = "inline-block", 1000);
 });
 
-/* Heart click */
+/* CLICK HERE → NEW PAGE */
 heartBtn.addEventListener("click", () => {
-  finalMessage.classList.remove("hidden");
-  heartBtn.style.display = "none";
+  document.body.innerHTML = `
+    <div class="container">
+      <img src="sunflower.png">
 
-  // 🎊 Confetti burst
-  for(let i=0;i<40;i++){
-    const c = document.createElement("div");
-    c.className = "confetti";
-    c.innerHTML = ["🎉","💖","✨","🎊"][Math.floor(Math.random()*4)];
-    c.style.left = Math.random()*100+"vw";
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),3000);
-  }
+      <p>
+        To my hardworking, beautiful girl ❤️<br><br>
+        I see how much you try, how much you carry, and how gracefully you still smile through it all.
+        Your strength amazes me, and your heart inspires me more than you’ll ever know.
+        You are the lucky charm of my life, the moonlight in my darkest nights,
+        the calm my heart always searches for.<br><br>
+
+        I don’t want grand promises or perfect moments —
+        I just want to hold your hand and walk beside you,
+        through every season, until the very end.
+        Loving you feels like home, like something my soul has been waiting for all along.<br><br>
+
+        <strong>I love you 💝</strong><br>
+        <strong>Happy Valentine’s Day 💕✨</strong>
+      </p>
+
+      <img src="Hug.gif" style="max-width:200px;">
+    </div>
+  `;
 });
 </script>
 
