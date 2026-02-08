@@ -15,29 +15,21 @@ body {
 }
 
 .container {
+  max-width: 750px;
+  margin: auto;
   padding: 30px 15px;
 }
 
 img {
   max-width: 260px;
-  margin: 20px auto;
   display: block;
-}
-
-h1 {
-  color: #e6005c;
-}
-
-p {
-  color: #b30047;
-  font-size: 16px;
-  line-height: 1.6;
+  margin: 20px auto;
 }
 
 button {
   font-size: 18px;
   padding: 12px 24px;
-  border-radius: 25px;
+  border-radius: 30px;
   border: none;
   cursor: pointer;
   margin: 10px;
@@ -46,19 +38,49 @@ button {
 #yesBtn {
   background: #ff4d88;
   color: white;
+  transition: transform 0.3s ease;
 }
 
 #noBtn {
   background: #ddd;
 }
 
-.heart-btn {
-  display: none;
-  background: #ff4d88;
+/* Buttons */
+.heart-btn, .gift-btn {
+  background: #ff69b4;
   color: white;
-  font-size: 22px;
-  padding: 14px 28px;
-  border-radius: 30px;
+}
+
+.green-btn {
+  background: #28c76f;
+  color: white;
+  animation: glow 1.5s infinite alternate;
+}
+
+.red-btn {
+  background: #ff3b3b;
+  color: white;
+}
+
+/* Animations */
+@keyframes glow {
+  from { box-shadow: 0 0 6px #28c76f; }
+  to { box-shadow: 0 0 18px #28c76f; }
+}
+
+@keyframes shake {
+  0%{transform:translateX(0);}
+  25%{transform:translateX(-6px);}
+  50%{transform:translateX(6px);}
+  75%{transform:translateX(-6px);}
+  100%{transform:translateX(0);}
+}
+
+@keyframes bounce {
+  0%{transform:scale(1);}
+  30%{transform:scale(1.25);}
+  60%{transform:scale(0.9);}
+  100%{transform:scale(1);}
 }
 
 /* Floating hearts */
@@ -66,12 +88,80 @@ button {
   position: fixed;
   font-size: 20px;
   animation: floatUp 6s linear infinite;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 @keyframes floatUp {
   from { transform: translateY(100vh); }
   to { transform: translateY(-10vh); }
+}
+
+/* ASCII Bunny */
+.ring-box {
+  font-family: monospace;
+  font-size: 36px;
+  color: red;
+  line-height: 1.4;
+  margin: 40px auto 10px;
+  text-align: left;
+  width: fit-content;
+  position: relative;
+}
+
+/* Bunny blink */
+.blink {
+  animation: blink 4s infinite;
+}
+
+@keyframes blink {
+  0%, 95%, 100% { opacity: 1; }
+  96%, 99% { opacity: 0; }
+}
+
+/* Ring sparkle */
+.sparkle {
+  position: absolute;
+  right: -20px;
+  bottom: 10px;
+  font-size: 20px;
+  animation: sparkle 1.5s infinite;
+}
+
+@keyframes sparkle {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(0.5); }
+}
+
+.for-you {
+  font-size: 28px;
+  color: #ff3366;
+  text-shadow: 0 0 12px #ff99bb;
+  margin-bottom: 30px;
+}
+
+/* Celebration */
+.yes-text {
+  font-size: 42px;
+  color: #e6005c;
+  margin-top: 20px;
+}
+
+.emoji {
+  position: fixed;
+  font-size: 30px;
+}
+
+.fall { animation: fall 3s linear forwards; }
+.slide { animation: slide 3s linear forwards; }
+.bounceEmoji { animation: bounceEmoji 2s ease forwards; }
+
+@keyframes fall { to { transform: translateY(110vh); } }
+@keyframes slide { to { transform: translateX(110vw); } }
+@keyframes bounceEmoji {
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-120px);}
+  100%{transform:translateY(100vh);}
 }
 </style>
 </head>
@@ -79,87 +169,143 @@ button {
 <body>
 
 <audio id="bgMusic" src="music.mp3" loop></audio>
-
-<div class="container" id="page1">
-
-  <img src="Sad hamster.png" id="sadHamster">
-
-  <h1 id="question">Will you be my Valentine? 💘</h1>
-
-  <div id="buttons">
-    <button id="yesBtn">Yes 💖</button>
-    <button id="noBtn">No 💔</button>
-  </div>
-
-  <img src="Happy hamster.png" id="happyHamster" style="display:none;">
-
-  <h1 id="congrats" style="display:none;">
-    🎉 Congratulations, you’re now officially my Valentine 💝
-  </h1>
-
-  <button id="heartBtn" class="heart-btn">❤️ Click Here</button>
-
-</div>
+<div class="container" id="app"></div>
 
 <script>
-/* Floating hearts everywhere */
+/* Floating hearts */
 setInterval(() => {
   const h = document.createElement("div");
   h.className = "heart";
-  h.innerHTML = ["💖","💗","💘","💝"][Math.floor(Math.random()*4)];
+  h.innerHTML = ["💖","💗","💕","💝"][Math.floor(Math.random()*4)];
   h.style.left = Math.random()*100 + "vw";
   document.body.appendChild(h);
   setTimeout(() => h.remove(), 6000);
 }, 500);
 
-/* NO button escape */
-noBtn.addEventListener("mouseover", () => {
-  noBtn.style.position = "absolute";
-  noBtn.style.left = Math.random()*80 + "%";
-  noBtn.style.top = Math.random()*80 + "%";
-});
-
-/* YES click */
-yesBtn.addEventListener("click", () => {
-  navigator.vibrate?.(200);
-  bgMusic.play();
-
-  sadHamster.style.display = "none";
-  buttons.style.display = "none";
-  question.style.display = "none";
-
-  happyHamster.style.display = "block";
-  congrats.style.display = "block";
-
-  setTimeout(() => heartBtn.style.display = "inline-block", 1000);
-});
-
-/* CLICK HERE → NEW PAGE */
-heartBtn.addEventListener("click", () => {
-  document.body.innerHTML = `
-    <div class="container">
-      <img src="sunflower.png">
-
-      <p>
-        To my hardworking, beautiful girl ❤️<br><br>
-        I see how much you try, how much you carry, and how gracefully you still smile through it all.
-        Your strength amazes me, and your heart inspires me more than you’ll ever know.
-        You are the lucky charm of my life, the moonlight in my darkest nights,
-        the calm my heart always searches for.<br><br>
-
-        I don’t want grand promises or perfect moments —
-        I just want to hold your hand and walk beside you,
-        through every season, until the very end.
-        Loving you feels like home, like something my soul has been waiting for all along.<br><br>
-
-        <strong>I love you 💝</strong><br>
-        <strong>Happy Valentine’s Day 💕✨</strong>
-      </p>
-
-      <img src="Hug.gif" style="max-width:200px;">
-    </div>
+/* START PAGE */
+function startPage() {
+  document.getElementById("app").innerHTML = `
+    <img src="Sad hamster.png" id="sadHamster">
+    <h1>Will you be my Valentine? 💘</h1>
+    <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 💔</button>
   `;
-});
+  setupNoButton();
+  document.getElementById("yesBtn").onclick = yesClicked;
+}
+
+/* NO BUTTON */
+function setupNoButton() {
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const sadHamster = document.getElementById("sadHamster");
+
+  const msgs = [
+    "🥺 I'm sad now", "😢 Think again?", "💔 That hurt…",
+    "🙏 Pleaseee", "😭 My heart is breaking",
+    "💘 Last chance?", "🥹 Don't do this"
+  ];
+
+  let yesScale = 1, clicks = 0;
+
+  noBtn.onclick = () => {
+    clicks++;
+    noBtn.innerText = msgs[Math.floor(Math.random()*msgs.length)];
+    noBtn.style.position = "absolute";
+    noBtn.style.left = Math.random()*80 + "%";
+    noBtn.style.top = Math.random()*80 + "%";
+
+    sadHamster.style.animation = "shake 0.4s";
+    setTimeout(()=>sadHamster.style.animation="",400);
+
+    yesScale += 0.12;
+    yesBtn.style.transform = `scale(${yesScale})`;
+
+    if (clicks >= 8) noBtn.style.display = "none";
+  };
+}
+
+/* YES */
+function yesClicked() {
+  document.getElementById("bgMusic").play();
+  document.getElementById("app").innerHTML = `
+    <img src="Happy hamster.png" id="happyHamster">
+    <h2>🎉 Congratulations, you’re now officially my Valentine 💝</h2>
+    <button class="heart-btn" onclick="messagePage()">❤️ Click Here</button>
+  `;
+  document.getElementById("happyHamster").style.animation = "bounce 0.8s";
+}
+
+/* MESSAGE PAGE */
+function messagePage() {
+  document.getElementById("app").innerHTML = `
+    <img src="sunflower.png">
+    <p>
+      To my hardworking, beautiful girl ❤️<br><br>
+      I see how much you try, how much you carry, and how gracefully you still smile through it all.
+      Your strength amazes me, and your heart inspires me more than you’ll ever know.
+      You are the lucky charm of my life, the moonlight in my darkest nights,
+      the calm my heart always searches for.<br><br>
+
+      I don’t want grand promises or perfect moments —
+      I just want to hold your hand and walk beside you,
+      through every season, until the very end.
+      Loving you feels like home, like something my soul has been waiting for all along.<br><br>
+
+      <strong>I love you 💝<br>
+      Happy Valentine’s Day 💕✨</strong>
+    </p>
+
+    <img src="Hug.gif" style="max-width:240px;">
+    <button class="gift-btn" onclick="giftPage()">💍 Click here for Valentine Day Gift</button>
+  `;
+}
+
+/* GIFT PAGE */
+function giftPage() {
+  document.getElementById("app").innerHTML = `
+    <pre class="ring-box">
+(\\_/)
+(<span class="blink">•.•</span>)
+/>💍
+<span class="sparkle">✨</span>
+    </pre>
+
+    <div class="for-you">For You 💖</div>
+
+    <button class="green-btn" onclick="celebrate()">😍 Missed me</button>
+    <button class="red-btn" onclick="window.open('','_self');window.close();">😒 I don't care</button>
+  `;
+}
+
+/* CELEBRATION */
+function celebrate() {
+  const t = document.createElement("div");
+  t.className = "yes-text";
+  t.innerText = "She said YES 💍";
+  document.body.appendChild(t);
+
+  const emojis = ["🎉","🎊","💖","💍","🥰"];
+  const anims = ["fall","slide","bounceEmoji"];
+
+  emojis.forEach((e,i)=>{
+    setTimeout(()=>{
+      const el = document.createElement("div");
+      el.className = "emoji " + anims[i%3];
+      el.innerText = e;
+      el.style.left = Math.random()*80 + "vw";
+      el.style.top = "0";
+      document.body.appendChild(el);
+      setTimeout(()=>el.remove(),3000);
+    }, i*350);
+  });
+
+  setTimeout(()=>{
+    window.location.href = "https://wa.me/qr/FQ3KQZDDT4C4J1";
+  }, 3000);
+}
+
+startPage();
 </script>
 
 </body>
