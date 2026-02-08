@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine ❤️</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#ffe6eb;
+  font-family:Arial, sans-serif;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+button{
+  padding:12px 22px;
+  margin:10px;
+  font-size:16px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+#yes{
+  background:#ff4d6d;
+  color:white;
+}
+
+#no{
+  background:#ddd;
+  position:absolute;
+}
+
+.section{
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- STEP 1 -->
+<div class="card section" id="step1">
+  <h2>Will you be my Valentine? ❤️</h2>
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
+</div>
+
+<!-- STEP 2 -->
+<div class="card section" id="step2">
+  <img src="sunflower.png" alt="Sunflower bouquet" style="width:220px;"><br><br>
+  <p style="color:#ff4d6d;">You are my sunshine 🌻</p>
+  <button id="open">💗 Click here</button>
+</div>
+
+<!-- STEP 3 -->
+<div class="card section" id="step3">
+  <p>
+      To my hardworking, beautiful girl ❤️<br><br>
+      I see how much you try, how much you carry, and how gracefully you still smile through it all.
+      Your strength inspires me, your kindness comforts me, and your presence makes even ordinary days feel special.
+      Loving you feels easy, natural, and real.<br><br>
+      You are the love of my life, you make my life so meaningful and I'm so lucky to have you as my valentine this year.
+      I love you whole-heartedly and I can't wait to continue loving you for the rest of my life.<br><br>
+      <b>I Love you 💝</b>
+    </p>
+</div>
+
+<script>
+// FORCE START
+document.getElementById("step1").style.display = "block";
+
+// NO button runs away 😈
+const noBtn = document.getElementById("no");
+noBtn.onmouseover = () => {
+  noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+  noBtn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+};
+
+// YES flow
+document.getElementById("yes").onclick = () => {
+  step1.style.display = "none";
+  step2.style.display = "block";
+};
+
+document.getElementById("open").onclick = () => {
+  step2.style.display = "none";
+  step3.style.display = "block";
+};
+</script>
+
+</body>
+</html>
