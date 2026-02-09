@@ -2,311 +2,234 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Valentine 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(#fff0f5, #ffe6ee);
-  text-align: center;
-  overflow-x: hidden;
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(#fff0f5,#ffe6ee);
+  text-align:center;
+  overflow-x:hidden;
 }
 
-.container {
-  max-width: 750px;
-  margin: auto;
-  padding: 30px 15px;
-}
-
-img {
-  max-width: 260px;
-  display: block;
-  margin: 20px auto;
-}
-
-button {
-  font-size: 18px;
-  padding: 12px 24px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  margin: 10px;
-}
-
-#yesBtn {
-  background: #ff4d88;
-  color: white;
-  transition: transform 0.3s ease;
-}
-
-#noBtn {
-  background: #ddd;
-}
+.container{max-width:760px;margin:auto;padding:30px 15px;}
+img{max-width:260px;margin:20px auto;display:block}
 
 /* Buttons */
-.heart-btn, .gift-btn {
-  background: #ff69b4;
-  color: white;
+button{
+  font-size:18px;
+  padding:14px 28px;
+  border-radius:30px;
+  border:none;
+  cursor:pointer;
+  margin:12px;
+  transition:.3s;
 }
+button:hover{transform:scale(1.1)}
 
-.green-btn {
-  background: #28c76f;
-  color: white;
-  animation: glow 1.5s infinite alternate;
-}
+.pink{background:#ff4da6;color:white;box-shadow:0 0 20px #ff4da6}
+.red{background:#ff3b3b;color:white;box-shadow:0 0 20px #ff3b3b}
+.green{background:#28c76f;color:white;box-shadow:0 0 20px #28c76f}
 
-.red-btn {
-  background: #ff3b3b;
-  color: white;
+.glow{animation:glow 1.5s infinite alternate}
+@keyframes glow{
+  from{box-shadow:0 0 10px currentColor}
+  to{box-shadow:0 0 30px currentColor}
 }
 
 /* Animations */
-@keyframes glow {
-  from { box-shadow: 0 0 6px #28c76f; }
-  to { box-shadow: 0 0 18px #28c76f; }
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  50%{transform:translateX(6px)}
+  75%{transform:translateX(-6px)}
+  100%{transform:translateX(0)}
+}
+@keyframes bounce{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.3)}
+  100%{transform:scale(1)}
 }
 
-@keyframes shake {
-  0%{transform:translateX(0);}
-  25%{transform:translateX(-6px);}
-  50%{transform:translateX(6px);}
-  75%{transform:translateX(-6px);}
-  100%{transform:translateX(0);}
+/* Hearts */
+.heart{
+  position:fixed;
+  font-size:22px;
+  animation:floatUp 6s linear infinite;
+}
+@keyframes floatUp{
+  from{transform:translateY(100vh)}
+  to{transform:translateY(-10vh)}
 }
 
-@keyframes bounce {
-  0%{transform:scale(1);}
-  30%{transform:scale(1.25);}
-  60%{transform:scale(0.9);}
-  100%{transform:scale(1);}
-}
+/* Scroll */
+.scroll-area{height:140vh;padding-top:40px}
+.final-btns{display:none;margin-top:40px}
 
-/* Floating hearts */
-.heart {
-  position: fixed;
-  font-size: 20px;
-  animation: floatUp 6s linear infinite;
-  opacity: 0.8;
-}
-
-@keyframes floatUp {
-  from { transform: translateY(100vh); }
-  to { transform: translateY(-10vh); }
-}
-
-/* ASCII Bunny */
-.ring-box {
-  font-family: monospace;
-  font-size: 36px;
-  color: red;
-  line-height: 1.4;
-  margin: 40px auto 10px;
-  text-align: left;
-  width: fit-content;
-  position: relative;
-}
-
-/* Bunny blink */
-.blink {
-  animation: blink 4s infinite;
-}
-
-@keyframes blink {
-  0%, 95%, 100% { opacity: 1; }
-  96%, 99% { opacity: 0; }
-}
-
-/* Ring sparkle */
-.sparkle {
-  position: absolute;
-  right: -20px;
-  bottom: 10px;
-  font-size: 20px;
-  animation: sparkle 1.5s infinite;
-}
-
-@keyframes sparkle {
-  0% { opacity: 0; transform: scale(0.5); }
-  50% { opacity: 1; transform: scale(1.2); }
-  100% { opacity: 0; transform: scale(0.5); }
-}
-
-.for-you {
-  font-size: 28px;
-  color: #ff3366;
-  text-shadow: 0 0 12px #ff99bb;
-  margin-bottom: 30px;
-}
-
-/* Celebration */
-.yes-text {
-  font-size: 42px;
-  color: #e6005c;
-  margin-top: 20px;
-}
-
-.emoji {
-  position: fixed;
-  font-size: 30px;
-}
-
-.fall { animation: fall 3s linear forwards; }
-.slide { animation: slide 3s linear forwards; }
-.bounceEmoji { animation: bounceEmoji 2s ease forwards; }
-
-@keyframes fall { to { transform: translateY(110vh); } }
-@keyframes slide { to { transform: translateX(110vw); } }
-@keyframes bounceEmoji {
-  0%{transform:translateY(0);}
-  50%{transform:translateY(-120px);}
-  100%{transform:translateY(100vh);}
+.small{font-size:14px;color:#777}
+input{
+  padding:12px;
+  border-radius:20px;
+  border:2px solid pink;
+  text-align:center;
+  font-size:16px;
 }
 </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" src="music.mp3" loop></audio>
+<audio id="music" src="music.mp3" loop></audio>
 <div class="container" id="app"></div>
 
 <script>
-/* Floating hearts */
-setInterval(() => {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = ["💖","💗","💕","💝"][Math.floor(Math.random()*4)];
-  h.style.left = Math.random()*100 + "vw";
+/* floating hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML=["💖","💕","💗","💝"][Math.floor(Math.random()*4)];
+  h.style.left=Math.random()*100+"vw";
   document.body.appendChild(h);
-  setTimeout(() => h.remove(), 6000);
-}, 500);
+  setTimeout(()=>h.remove(),6000);
+},600);
 
-/* START PAGE */
-function startPage() {
-  document.getElementById("app").innerHTML = `
-    <img src="Sad hamster.png" id="sadHamster">
+/* START */
+function start(){
+  app.innerHTML=`
+    <img src="Sad hamster.png" id="sad">
     <h1>Will you be my Valentine? 💘</h1>
-    <button id="yesBtn">Yes 💖</button>
+    <button id="yesBtn" class="pink glow">Yes 💖</button>
     <button id="noBtn">No 💔</button>
   `;
-  setupNoButton();
-  document.getElementById("yesBtn").onclick = yesClicked;
+  yesBtn.onclick=yes;
+  setupNo();
 }
 
-/* NO BUTTON */
-function setupNoButton() {
-  const noBtn = document.getElementById("noBtn");
-  const yesBtn = document.getElementById("yesBtn");
-  const sadHamster = document.getElementById("sadHamster");
-
-  const msgs = [
-    "🥺 I'm sad now", "😢 Think again?", "💔 That hurt…",
-    "🙏 Pleaseee", "😭 My heart is breaking",
-    "💘 Last chance?", "🥹 Don't do this"
+/* NO */
+function setupNo(){
+  const msgs=[
+    "🥺 Please…","😭 I'm sad","💔 Why?",
+    "🥹 Think again","🙏 Last chance",
+    "😞 My heart","🥲 Be kind",
+    "💘 You love me"
   ];
-
-  let yesScale = 1, clicks = 0;
-
-  noBtn.onclick = () => {
-    clicks++;
-    noBtn.innerText = msgs[Math.floor(Math.random()*msgs.length)];
-    noBtn.style.position = "absolute";
-    noBtn.style.left = Math.random()*80 + "%";
-    noBtn.style.top = Math.random()*80 + "%";
-
-    sadHamster.style.animation = "shake 0.4s";
-    setTimeout(()=>sadHamster.style.animation="",400);
-
-    yesScale += 0.12;
-    yesBtn.style.transform = `scale(${yesScale})`;
-
-    if (clicks >= 8) noBtn.style.display = "none";
+  let scale=1;
+  noBtn.onclick=()=>{
+    noBtn.innerText=msgs[Math.floor(Math.random()*msgs.length)];
+    noBtn.style.position="absolute";
+    noBtn.style.left=Math.random()*70+"%";
+    noBtn.style.top=Math.random()*70+"%";
+    sad.style.animation="shake .4s";
+    setTimeout(()=>sad.style.animation="",400);
+    scale+=.12;
+    yesBtn.style.transform=`scale(${scale})`;
   };
 }
 
 /* YES */
-function yesClicked() {
-  document.getElementById("bgMusic").play();
-  document.getElementById("app").innerHTML = `
-    <img src="Happy hamster.png" id="happyHamster">
+function yes(){
+  music.play();
+  app.innerHTML=`
+    <img src="Happy hamster.png" id="happy">
     <h2>🎉 Congratulations, you’re now officially my Valentine 💝</h2>
-    <button class="heart-btn" onclick="messagePage()">❤️ Click Here</button>
+    <button class="pink glow" onclick="message()">❤️ Click Here</button>
   `;
-  document.getElementById("happyHamster").style.animation = "bounce 0.8s";
+  happy.style.animation="bounce .8s";
 }
 
-/* MESSAGE PAGE */
-function messagePage() {
-  document.getElementById("app").innerHTML = `
+/* MESSAGE */
+function message(){
+  app.innerHTML=`
     <img src="sunflower.png">
     <p>
-      To my hardworking, beautiful girl ❤️<br><br>
-      I see how much you try, how much you carry, and how gracefully you still smile through it all.
-      Your strength amazes me, and your heart inspires me more than you’ll ever know.
-      You are the lucky charm of my life, the moonlight in my darkest nights,
-      the calm my heart always searches for.<br><br>
+    <strong>To my hardworking, beautiful girl ❤️</strong><br><br>
+    I see how much you try, how much you carry, and how gracefully you still smile through it all.
+    Your strength amazes me, your kindness comforts me, and your presence makes even ordinary days feel special.<br><br>
 
-      I don’t want grand promises or perfect moments —
-      I just want to hold your hand and walk beside you,
-      through every season, until the very end.
-      Loving you feels like home, like something my soul has been waiting for all along.<br><br>
+    You are the lucky charm of my life, the moonlight in my darkest nights, the calm my heart always searches for.
+    I don’t want grand promises or perfect moments — I just want to hold your hand and walk beside you,
+    through every season, until the very end.<br><br>
 
-      <strong>I love you 💝<br>
-      Happy Valentine’s Day 💕✨</strong>
+    Loving you feels easy, natural, and real.
+    You make my life meaningful, and I’m so lucky to call you mine.<br><br>
+
+    <strong>I love you 💝<br>Happy Valentine’s Day 💕✨</strong>
     </p>
 
-    <img src="Hug.gif" style="max-width:240px;">
-    <button class="gift-btn" onclick="giftPage()">💍 Click here for Valentine Day Gift</button>
+    <img src="Hug.gif">
+    <button class="pink glow" onclick="gift()">💍 Click here for Valentine Gift</button>
   `;
 }
 
-/* GIFT PAGE */
-function giftPage() {
-  document.getElementById("app").innerHTML = `
-    <pre class="ring-box">
+/* 🔐 PASSWORD PAGE (PANDA VERSION) */
+function gift(){
+  app.innerHTML=`
+    <img src="Panda.png">
+    <input id="pass" placeholder="Enter secret code">
+    <div class="small">(the password is hiding in the flower 🌸)</div>
+    <button class="green glow" onclick="checkPass()">Enter</button>
+  `;
+}
+
+function checkPass(){
+  if(pass.value==="Pookie"){
+    scrollPage();
+  }else{
+    alert("Wrong code 🙈");
+  }
+}
+
+/* SCROLL PAGE */
+function scrollPage(){
+  app.innerHTML=`
+<div class="scroll-area">
+<h2>I'm really missing you mi 💞</h2>
+<p class="small">If you miss me too, just scroll down to find me.</p>
+
+<img src="scrollpanda1.png">
+<img src="scrollpanda2.png">
+<img src="scrollpanda3.png">
+<img src="scrollpanda4.png">
+<img src="scrollpanda5.png">
+
+<div id="finalBtns" class="final-btns">
+<button class="pink glow" onclick="finalYes()">😍 Missed me</button>
+<button class="red glow" onclick="finalNo()">😒 I don’t care</button>
+</div>
+</div>
+`;
+
+window.addEventListener("scroll",()=>{
+  if(window.scrollY>120){
+    finalBtns.style.display="block";
+  }
+});
+}
+
+/* FINAL YES */
+function finalYes(){
+  app.innerHTML=`
+  <h1 style="color:#ff2f92">She said YES 💍</h1>
+<pre style="color:#ff2f92;font-size:36px">
 (\\_/)
-(<span class="blink">•.•</span>)
+( •.• )
 />💍
-<span class="sparkle">✨</span>
-    </pre>
-
-    <div class="for-you">For You 💖</div>
-
-    <button class="green-btn" onclick="celebrate()">😍 Missed me</button>
-    <button class="red-btn" onclick="window.open('','_self');window.close();">😒 I don't care</button>
-  `;
-}
-
-/* CELEBRATION */
-function celebrate() {
-  const t = document.createElement("div");
-  t.className = "yes-text";
-  t.innerText = "She said YES 💍";
-  document.body.appendChild(t);
-
-  const emojis = ["🎉","🎊","💖","💍","🥰"];
-  const anims = ["fall","slide","bounceEmoji"];
-
-  emojis.forEach((e,i)=>{
-    setTimeout(()=>{
-      const el = document.createElement("div");
-      el.className = "emoji " + anims[i%3];
-      el.innerText = e;
-      el.style.left = Math.random()*80 + "vw";
-      el.style.top = "0";
-      document.body.appendChild(el);
-      setTimeout(()=>el.remove(),3000);
-    }, i*350);
-  });
-
+</pre>
+`;
   setTimeout(()=>{
-    window.location.href = "https://wa.me/qr/FQ3KQZDDT4C4J1";
-  }, 3000);
+    window.location.href="https://wa.me/qr/FQ3KQZDDT4C4J1";
+  },2000);
 }
 
-startPage();
-</script>
+/* FINAL NO */
+function finalNo(){
+  app.innerHTML=`<img src="cryhamster.png">`;
+  setTimeout(()=>window.close(),2000);
+}
 
+start();
+</script>
 </body>
 </html>
